@@ -1,6 +1,6 @@
 # Thai Law
 
-คลังข้อมูลกฎหมายไทย
+คลังข้อมูลกฎหมายไทย (พระราชบัญญัติ)
 
 - ข้อมูลเก็บรวบรวมมาจาก [http://www.krisdika.go.th/](http://www.krisdika.go.th/)
 - โครงการนี้เป็นส่วนหนึ่งในแผนพัฒนา [PyThaiNLP](https://github.com/PyThaiNLP/)
