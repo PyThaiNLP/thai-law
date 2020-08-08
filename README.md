@@ -1,5 +1,16 @@
 # Thai Law
 
+## English
+
+Thai Law Dataset
+
+- Data source from Office of the Council of State, Thailand. [https://www.krisdika.go.th/](https://www.krisdika.go.th/)
+- This part of PyThaiNLP Project.
+- License Dataset is public domain.
+
+Download https://github.com/PyThaiNLP/thai-law/releases
+
+## Thai
 คลังข้อมูลกฎหมายไทย (พระราชบัญญัติ)
 
 - ข้อมูลเก็บรวบรวมมาจากเว็บไซต์สำนักงานคณะกรรมการกฤษฎีกา [https://www.krisdika.go.th/](https://www.krisdika.go.th/)
