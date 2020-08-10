@@ -2,7 +2,7 @@
 
 ## English
 
-Thai Law Dataset
+Thai Law Dataset (Act of Parliament)
 
 - Data source from Office of the Council of State, Thailand. [https://www.krisdika.go.th/](https://www.krisdika.go.th/)
 - This part of PyThaiNLP Project.
