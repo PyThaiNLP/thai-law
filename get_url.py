@@ -100,7 +100,7 @@ def get_law_urls(law_group, nb_pages):
 # In[616]:
 
 
-# dfs = []
+dfs = []
 for row in tqdm(law_groups.iloc[20:,:].itertuples(index=False)):
     print(row[0])
     df = get_law_urls(row[0],row[2])
