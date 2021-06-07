@@ -42,7 +42,7 @@ if not os.path.exists(f):
 driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver",chrome_options=chrome_options)
 driver.get('https://www.krisdika.go.th/web/guest/thai-code-annotated')
 soup = BeautifulSoup(driver.page_source)
-driver.close()
+#driver.close()
 
 law_groups = pd.DataFrame([i.text for i in soup.find_all('a',class_='ksdk-theme-bg-third-color')])
 law_groups['law_group'] = law_groups[0].map(lambda x: x.split('(')[0][:-1])
@@ -59,7 +59,7 @@ law_groups.to_csv('data/last/law_groups.csv',index=False)
 
 def get_law_urls(law_group, nb_pages):
     #open list page
-    driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver",chrome_options=chrome_options)
+    #driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver",chrome_options=chrome_options)
     driver.get('https://www.krisdika.go.th/web/guest/thai-code-annotated')
     #click law group
     link = driver.find_element_by_partial_link_text(law_group)
@@ -87,7 +87,7 @@ def get_law_urls(law_group, nb_pages):
         sub_law_urls+=[i.find('a').get('href') for i in sub_law_soup]
         
     #close driver
-    driver.close()
+    #driver.close()
     
     #summarize to df
     df = pd.DataFrame({'title':laws, 'law_url':law_urls, 'sub_law_url':sub_law_urls})
@@ -156,7 +156,7 @@ law_groups.nb_laws.sum()
 
 def get_law_items(url):
     #open url
-    driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver",chrome_options=chrome_options)
+    #driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver",chrome_options=chrome_options)
     driver.get(url)
 
     #display 100 items
@@ -193,7 +193,7 @@ def get_law_items(url):
     odds = soup.find_all('tr',class_='odd_material')
     
     #close
-    driver.close()
+    #driver.close()
 
     #put into df
     ds = []
@@ -253,7 +253,7 @@ res.shape, res.sysid.nunique()
 
 
 # In[932]:
-
+driver.close()
 
 res.to_csv('data/last/law_item_urls.csv',index=False)
 
