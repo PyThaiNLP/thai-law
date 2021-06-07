@@ -10,7 +10,7 @@ headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWe
 
 law_groups = pd.read_csv(os.path.join(path,'law_groups.csv'))
 
-list_law_groups = law_groups['law_group'].to_list()+['others']
+list_law_groups = [i.replace(' ','_') for i in law_groups['law_group'].to_list()+['others']]
 
 list_sysid = []
 
