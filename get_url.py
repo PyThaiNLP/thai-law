@@ -32,7 +32,7 @@ if not os.path.exists(f):
 
 
 #get law groups
-driver = webdriver.Chrome()
+driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver")
 driver.get('https://www.krisdika.go.th/web/guest/thai-code-annotated')
 soup = BeautifulSoup(driver.page_source)
 driver.close()
@@ -53,7 +53,7 @@ law_groups
 
 def get_law_urls(law_group, nb_pages):
     #open list page
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver")
     driver.get('https://www.krisdika.go.th/web/guest/thai-code-annotated')
     #click law group
     link = driver.find_element_by_partial_link_text(law_group)
@@ -150,7 +150,7 @@ law_groups.nb_laws.sum()
 
 def get_law_items(url):
     #open url
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver")
     driver.get(url)
 
     #display 100 items
