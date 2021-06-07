@@ -28,6 +28,9 @@ jobs:
     - name: run get_url
       run: |
         python get_url.py
+    - name: Scrape Web
+      run: |
+        python scraper.py
     - uses: stefanzweifel/git-auto-commit-action@v4.1.2
       with:
         commit_message: Apply get_url

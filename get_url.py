@@ -49,8 +49,7 @@ law_groups['law_group'] = law_groups[0].map(lambda x: x.split('(')[0][:-1])
 law_groups['nb_laws'] = law_groups[0].map(lambda x: int(x.split('(')[1][:-1]))
 law_groups['nb_pages'] = np.ceil(law_groups['nb_laws']/10).astype(int)
 law_groups = law_groups.drop(0,1)
-#law_groups.to_csv('data/last/law_groups.csv',index=False)
-law_groups
+law_groups.to_csv('data/last/law_groups.csv',index=False)
 
 
 # ## Get Law URLs and Sub-law Lists
@@ -139,7 +138,7 @@ law_url_df[['sysid','law_type']].drop_duplicates().law_type.value_counts()
 # In[621]:
 
 
-# law_url_df.to_csv('data/v0.3/law_url_df.csv',index=False)
+law_url_df.to_csv('data/last/law_url_df.csv',index=False)
 law_url_df = pd.read_csv('data/last/law_url_df.csv')
 law_url_df
 
@@ -216,7 +215,7 @@ def get_law_items(url):
 
 
 #deduplicate by sub_law_url
-law_url_df = pd.read_csv('data/last/law_url_df_new.csv')
+law_url_df = pd.read_csv('data/last/law_url_df.csv')
 law_url_dedup = law_url_df.groupby('sub_law_url').title.max().reset_index()
 law_url_dedup
 
@@ -253,10 +252,7 @@ res.shape, res.sysid.nunique()
 # In[932]:
 
 
-# res.to_csv('data/v0.3/law_item_urls.csv',index=False)
-res = pd.read_csv('data/last/law_item_urls_new.csv')
-res.shape
-
+res.to_csv('data/last/law_item_urls.csv',index=False)
 
 # In[ ]:
 
