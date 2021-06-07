@@ -1,0 +1,7 @@
+numpy
+pandas
+tqdm
+selenium
+requests
+selenium
+beautifulsoup4
