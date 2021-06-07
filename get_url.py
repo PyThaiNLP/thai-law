@@ -19,6 +19,10 @@ from selenium.webdriver.support import expected_conditions as EC
 import warnings
 warnings.filterwarnings('ignore')
 
+import os
+f=os.path.join("data","last/")
+if not os.path.exists(f):
+    os.makedirs(f)
 
 # ## [Thai Annotated Code](https://www.krisdika.go.th/web/guest/thai-code-annotated)
 
