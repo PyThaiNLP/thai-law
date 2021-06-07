@@ -15,9 +15,16 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
 
 import warnings
 warnings.filterwarnings('ignore')
+
+
+chrome_options = Options()
+chrome_options.add_argument('--headless')
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--disable-dev-shm-usage')
 
 import os
 f=os.path.join("data","last/")
@@ -32,7 +39,7 @@ if not os.path.exists(f):
 
 
 #get law groups
-driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver")
+driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver",chrome_options=chrome_options)
 driver.get('https://www.krisdika.go.th/web/guest/thai-code-annotated')
 soup = BeautifulSoup(driver.page_source)
 driver.close()
@@ -53,7 +60,7 @@ law_groups
 
 def get_law_urls(law_group, nb_pages):
     #open list page
-    driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver")
+    driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver",chrome_options=chrome_options)
     driver.get('https://www.krisdika.go.th/web/guest/thai-code-annotated')
     #click law group
     link = driver.find_element_by_partial_link_text(law_group)
@@ -150,7 +157,7 @@ law_groups.nb_laws.sum()
 
 def get_law_items(url):
     #open url
-    driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver")
+    driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver",chrome_options=chrome_options)
     driver.get(url)
 
     #display 100 items
