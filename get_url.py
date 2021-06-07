@@ -229,7 +229,10 @@ law_url_dedup
 
 ds = []
 for url in tqdm(law_url_dedup.sub_law_url):
-    ds+=get_law_items(url)
+    try:
+        ds+=get_law_items(url)
+    except:
+        print("Error: "+str(url))
     
 d = pd.DataFrame(ds)
 d.columns = ['item_name','item_url','sub_law_url']
