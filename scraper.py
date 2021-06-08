@@ -36,6 +36,6 @@ law_sysid = [(i,j) for i,j in zip(law_groups['sysid'].to_list(),law_groups['law_
 for i,j in law_sysid:
     if i in list_sysid:
         continue
-    p = os.path.join(path,'law', j, str(i)+'.txt')
+    p = os.path.join(path,'law', j.replace(' ','_'), str(i)+'.txt')
     with open(p,'w',encoding='utf-8') as f:
         f.write(get_data(str(i)))
