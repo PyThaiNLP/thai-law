@@ -3,8 +3,9 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import os
+import time
 
-path = os.path.join('data','last')
+path = os.path.join('data','v0.3')
 
 headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 
@@ -33,9 +34,16 @@ def get_data(sysid):
 law_groups = pd.read_csv(os.path.join(path,'law_url_df.csv'))
 law_sysid = [(i,j) for i,j in zip(law_groups['sysid'].to_list(),law_groups['law_group'].to_list())]
 
-for i,j in law_sysid:
-    if i in list_sysid:
-        continue
+def save(i,j):
     p = os.path.join(path,'law', j.replace(' ','_'), str(i)+'.txt')
     with open(p,'w',encoding='utf-8') as f:
         f.write(get_data(str(i)))
+
+for i,j in law_sysid:
+    if i in list_sysid:
+        continue
+    try:
+        save(i,j)
+    except:
+        print("error: "+str(i))
+    time.sleep(1)
