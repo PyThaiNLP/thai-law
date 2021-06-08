@@ -4,19 +4,28 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import os
 import time
+import json
 
-path = os.path.join('data','v0.3')
+
+
+path = os.path.join('data','last')
+
+
+d_f = os.path.join(path,'groups.json')
+with open(d_f, encoding='utf-8') as fh:
+    d_f_data = dict(json.load(fh))
 
 headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 
 law_groups = pd.read_csv(os.path.join(path,'law_groups.csv'))
 
-list_law_groups = [i.replace(' ','_') for i in law_groups['law_group'].to_list()+['others']]
+list_law_groups = [i for i in law_groups['law_group'].to_list()+['others']]
 
 list_sysid = []
+res = dict((v,k) for k,v in d_f_data.items())
 
 for i in list_law_groups:
-    p = os.path.join(path,'law', i)
+    p = os.path.join(path,'law', res[i])
     if not os.path.exists(p):
         os.makedirs(p)
     list_sysid+=[".".join(f.split(".")[:-1]) for f in os.listdir(path=p) if os.path.isfile(f)]
@@ -35,7 +44,7 @@ law_groups = pd.read_csv(os.path.join(path,'law_url_df.csv'))
 law_sysid = [(i,j) for i,j in zip(law_groups['sysid'].to_list(),law_groups['law_group'].to_list())]
 
 def save(i,j):
-    p = os.path.join(path,'law', j.replace(' ','_'), str(i)+'.txt')
+    p = os.path.join(path,'law', res[j], str(i)+'.txt')
     with open(p,'w',encoding='utf-8') as f:
         f.write(get_data(str(i)))
 
@@ -46,4 +55,3 @@ for i,j in law_sysid:
         save(i,j)
     except:
         print("error: "+str(i))
-    time.sleep(1)

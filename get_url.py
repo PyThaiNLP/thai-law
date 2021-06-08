@@ -16,6 +16,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
+import json
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -43,13 +44,31 @@ driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver",chrome_option
 driver.get('https://www.krisdika.go.th/web/guest/thai-code-annotated')
 soup = BeautifulSoup(driver.page_source)
 #driver.close()
+d_f = os.path.join(f,'groups.json')
+if not os.path.exists(f):
+    d_f_data = {}
+    max_dict = 0
+else:
+    with open(d_f, encoding='utf-8') as fh:
+        d_f_data = json.load(fh)
+    max_dict = list(d_f_data.keys()).max()
 
 law_groups = pd.DataFrame([i.text for i in soup.find_all('a',class_='ksdk-theme-bg-third-color')])
 law_groups['law_group'] = law_groups[0].map(lambda x: x.split('(')[0][:-1])
 law_groups['nb_laws'] = law_groups[0].map(lambda x: int(x.split('(')[1][:-1]))
 law_groups['nb_pages'] = np.ceil(law_groups['nb_laws']/10).astype(int)
 law_groups = law_groups.drop(0,1)
-law_groups.to_csv('data/last/law_groups.csv',index=False)
+law_groups.to_csv(os.path.join(f,'law_groups.csv'),index=False)
+
+law_groups_list = [i for i in law_groups['law_group'].to_list() if i not in list(d_f_data.values())]
+
+
+for i in law_groups_list:
+    max_dict+=1
+    d_f_data[max_dict] = i
+
+with open(d_f,"w", encoding='utf-8') as jsonfile:
+    json.dump(d_f_data,jsonfile,ensure_ascii=False)
 
 
 # ## Get Law URLs and Sub-law Lists
@@ -138,8 +157,8 @@ law_url_df[['sysid','law_type']].drop_duplicates().law_type.value_counts()
 # In[621]:
 
 
-law_url_df.to_csv('data/last/law_url_df.csv',index=False)
-law_url_df = pd.read_csv('data/last/law_url_df.csv')
+law_url_df.to_csv(os.path.join(f,'law_url_df.csv'),index=False)
+law_url_df = pd.read_csv(os.path.join(f,'law_url_df.csv'))
 law_url_df
 
 
@@ -215,7 +234,7 @@ def get_law_items(url):
 
 
 #deduplicate by sub_law_url
-law_url_df = pd.read_csv('data/last/law_url_df.csv')
+law_url_df = pd.read_csv(os.path.join(f,'law_url_df.csv'))
 law_url_dedup = law_url_df.groupby('sub_law_url').title.max().reset_index()
 law_url_dedup
 
@@ -255,7 +274,7 @@ res.shape, res.sysid.nunique()
 # In[932]:
 driver.close()
 
-res.to_csv('data/last/law_item_urls.csv',index=False)
+res.to_csv(os.path.join(f,'law_item_urls.csv'),index=False)
 
 # In[ ]:
 
