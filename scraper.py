@@ -18,14 +18,15 @@ with open(d_f, encoding='utf-8') as fh:
 headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 
 law_groups = pd.read_csv(os.path.join(path,'law_groups.csv'))
-
-list_law_groups = [i for i in law_groups['law_group'].to_list()+['others']]
-
-list_sysid = []
 res = dict((v,k) for k,v in d_f_data.items())
 
+list_law_groups = [res[i] for i in law_groups['law_group'].to_list()+['others']]
+
+list_sysid = []
+
+
 for i in list_law_groups:
-    p = os.path.join(path,'law', res[i])
+    p = os.path.join(path,'law', i)
     if not os.path.exists(p):
         os.makedirs(p)
     list_sysid+=[".".join(f.split(".")[:-1]) for f in os.listdir(path=p) if os.path.isfile(f)]
