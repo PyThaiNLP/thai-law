@@ -20,7 +20,9 @@ headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWe
 law_groups = pd.read_csv(os.path.join(path,'law_groups.csv'))
 res = dict((v,k) for k,v in d_f_data.items())
 
-list_law_groups = [res[i] for i in law_groups['law_group'].to_list()+['others']]
+list_law_groups = [res[i] for i in law_groups['law_group'].to_list()]
+
+list_law_groups=list_law_groups+['others']
 
 list_sysid = []
 
@@ -44,8 +46,13 @@ def get_data(sysid):
 law_groups = pd.read_csv(os.path.join(path,'law_url_df.csv'))
 law_sysid = [(i,j) for i,j in zip(law_groups['sysid'].to_list(),law_groups['law_group'].to_list())]
 
+groups = list(law_groups['law_group'].to_list())
+
 def save(i,j):
-    p = os.path.join(path,'law', res[j], str(i)+'.txt')
+    if j in groups:
+        p = os.path.join(path,'law', res[j], str(i)+'.txt')
+    else:
+        p = os.path.join(path,'law', 'others', str(i)+'.txt')
     with open(p,'w',encoding='utf-8') as f:
         f.write(get_data(str(i)))
 
