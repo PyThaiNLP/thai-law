@@ -31,7 +31,6 @@ jobs:
     - name: Scrape Web
       run: |
         python scraper.py
-    - uses: stefanzweifel/git-auto-commit-action@v4.1.2
+    - uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: Apply get_url
-        branch: ${{ github.head_ref }}
