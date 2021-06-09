@@ -31,6 +31,5 @@ jobs:
     - name: Scrape Web
       run: |
         python scraper.py
-    - uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        commit_message: Apply get_url
+    - name: Add & Commit
+      uses: EndBug/add-and-commit@v7.2.1
