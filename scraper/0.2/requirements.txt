@@ -1,0 +1,3 @@
+pythainlp
+mysql-connector-python
+beautifulsoup4
